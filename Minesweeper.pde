@@ -6,6 +6,7 @@ private final int NUM_ROWS=20;
 private final int NUM_COLS=20;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
+private int numBombs = 15;
 
 void setup ()
 {
@@ -16,18 +17,26 @@ void setup ()
     Interactive.make( this );
     
     //your code to declare and initialize buttons goes here
+     buttons= new MSButton[NUM_ROWS][NUM_COLS];
     for(int r = 0; r<NUM_ROWS; r++){
-        for(int c = 0; r<NUM_COLS; r++){
+        for(int c = 0; c<NUM_COLS; c++){
             buttons[r][c]= new MSButton(r,c); 
-    }
-    
-    
-    
+        }
+    }   
     setBombs();
 }
 public void setBombs()
 {
     //your code
+     
+    for(int n = 0; n<numBombs; n++){
+       int i = (int)(Math.random()*NUM_ROWS);
+       int j = (int)(Math.random()*NUM_COLS);
+       //if (!bombs.contains(buttons[i][j])) {
+          //bombs.add(buttons[n][3]);
+          System.out.println(bombs.size());
+       //} 
+   }
 }
 
 public void draw ()
@@ -59,8 +68,8 @@ public class MSButton
     
     public MSButton ( int rr, int cc )
     {
-        // width = 400/NUM_COLS;
-        // height = 400/NUM_ROWS;
+        width = 400/NUM_COLS;
+        height = 400/NUM_ROWS;
         r = rr;
         c = cc; 
         x = c*width;
@@ -89,8 +98,8 @@ public class MSButton
     {    
         if (marked)
             fill(0);
-        // else if( clicked && bombs.contains(this) ) 
-        //     fill(255,0,0);
+        else if( clicked && bombs.contains(this) ) 
+            fill(255,0,0);
         else if(clicked)
             fill( 200 );
         else 
