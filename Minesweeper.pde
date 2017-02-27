@@ -6,7 +6,7 @@ private final int NUM_ROWS=20;
 private final int NUM_COLS=20;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
-private int numBombs = 15;
+private int numBomb = 100;
 
 void setup ()
 {
@@ -28,14 +28,15 @@ void setup ()
 public void setBombs()
 {
     //your code
-     
-    for(int n = 0; n<numBombs; n++){
+    bombs = new ArrayList <MSButton>(); 
+    int f = (int)(Math.random()*100);
+    for(int n = 0; n<f; n++){
        int i = (int)(Math.random()*NUM_ROWS);
        int j = (int)(Math.random()*NUM_COLS);
-       //if (!bombs.contains(buttons[i][j])) {
-          //bombs.add(buttons[n][3]);
-          System.out.println(bombs.size());
-       //} 
+       if (!bombs.contains(buttons[i][j])) {
+          bombs.add(buttons[i][j]);
+          //System.out.println(bombs.size());
+       } 
    }
 }
 
@@ -92,6 +93,19 @@ public class MSButton
     {
         clicked = true;
         //your code here
+        if(marked == true)
+        {  
+          marked = false;
+          if(isValid(r,c-1) && buttons[r][c-1].isMarked())
+            buttons[r][c-1].mousePressed();
+          if(isValid(r,c+1) && buttons[r][c+1].isMarked())
+            buttons[r][c+1].mousePressed();
+          if(isValid(r-1,c) && buttons[r-1][c].isMarked())
+            buttons[r-1][c].mousePressed();
+          if(isValid(r+1,c) && buttons[r+1][c].isMarked())
+            buttons[r+1][c].mousePressed();
+          //3 more recursive calls
+        }
     }
 
     public void draw () 
@@ -116,12 +130,40 @@ public class MSButton
     public boolean isValid(int r, int c)
     {
         //your code here
+        if(r>=0&&r<20&&c>=0&&c<20&&!bombs.contains(this)){
+            return true;
+        }
         return false;
     }
     public int countBombs(int row, int col)
     {
         int numBombs = 0;
         //your code here
+        if(buttons[row-1][col].isValid(row-1,col)&&bombs.contains(buttons[row-1][col])){
+            numBombs++;
+        }
+        if(buttons[row+1][col].isValid(row+1,col)&&bombs.contains(buttons[row+1][col])){
+            numBombs++;
+        }
+        if(buttons[row][col+1].isValid(row,col+1)&&bombs.contains(buttons[row][col+1])){
+            numBombs++;
+        }
+        if(buttons[row][col-1].isValid(row,col-1)&&bombs.contains(buttons[row][col-1])){
+            numBombs++;
+        }
+        if(buttons[row-1][col-1].isValid(row-1,col-1)&&bombs.contains(buttons[row-1][col-1])){
+            numBombs++;
+        }
+        if(buttons[row+1][col+1].isValid(row+1,col+1)&&bombs.contains(buttons[row+1][col+1])){
+            numBombs++;
+        }
+        if(buttons[row+1][col-1].isValid(row+1,col-1)&&bombs.contains(buttons[row+1][col-1])){
+            numBombs++;
+        }
+        if(buttons[row-1][col+1].isValid(row-1,col+1)&&bombs.contains(buttons[row-1][col+1])){
+            numBombs++;
+        }
+        System.out.println(numBombs);
         return numBombs;
     }
 }
