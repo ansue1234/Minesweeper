@@ -93,19 +93,26 @@ public class MSButton
     {
         clicked = true;
         //your code here
-        if(marked == true)
-        {  
-          marked = false;
-          if(isValid(r,c-1) && buttons[r][c-1].isMarked())
+        if(keyPressed==true){
+            marked=!marked;
+        }
+        if(marked==false){
+            clicked = false;
+        }else if(bombs.contains(this)){
+            displayLosingMessage();
+        }else if(countBombs(r,c)>0){
+            setLabel(""+countBombs(r,c));
+        }
+          if(isValid(r,c-1) && buttons[r][c-1].clicked==false)
             buttons[r][c-1].mousePressed();
-          if(isValid(r,c+1) && buttons[r][c+1].isMarked())
+          if(isValid(r,c+1) && buttons[r][c+1].clicked==false)
             buttons[r][c+1].mousePressed();
-          if(isValid(r-1,c) && buttons[r-1][c].isMarked())
+          if(isValid(r-1,c) && buttons[r-1][c].clicked==false)
             buttons[r-1][c].mousePressed();
-          if(isValid(r+1,c) && buttons[r+1][c].isMarked())
+          if(isValid(r+1,c) && buttons[r+1][c].clicked==false)
             buttons[r+1][c].mousePressed();
           //3 more recursive calls
-        }
+        
     }
 
     public void draw () 
@@ -130,7 +137,7 @@ public class MSButton
     public boolean isValid(int r, int c)
     {
         //your code here
-        if(r>=0&&r<20&&c>=0&&c<20&&!bombs.contains(this)){
+        if(r>=0&&r<19&&c>=0&&c<19&&!bombs.contains(this)){
             return true;
         }
         return false;
