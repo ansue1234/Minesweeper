@@ -34,7 +34,7 @@ public void setBombs()
        int i = (int)(Math.random()*NUM_ROWS);
        int j = (int)(Math.random()*NUM_COLS);
        if (!bombs.contains(buttons[i][j])) {
-          System.out.println(i+","+j);
+          //System.out.println(i+","+j);
           bombs.add(buttons[i][j]);
           //System.out.println(bombs.size());
        } 
@@ -206,7 +206,7 @@ public class MSButton
         if(isValid(row-1,col+1)&&bombs.contains(buttons[row-1][col+1])){
             numBombs++;
         }
-        System.out.println(numBombs+" around "+r+","+c);
+        //System.out.println(numBombs+" around "+r+","+c);
         return numBombs;
     }
 }
