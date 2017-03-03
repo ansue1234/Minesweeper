@@ -10,7 +10,7 @@ private int numBomb = 100;
 
 void setup ()
 {
-    size(400, 400);
+    size(400, 600);
     textAlign(CENTER,CENTER);
     
     // make the manager
@@ -29,7 +29,7 @@ public void setBombs()
 {
     //your code
     bombs = new ArrayList <MSButton>(); 
-    int f = (int)(Math.random()*100);
+    int f = (int)((Math.random()*100)+50);
     for(int n = 0; n<f; n++){
        int i = (int)(Math.random()*NUM_ROWS);
        int j = (int)(Math.random()*NUM_COLS);
@@ -39,11 +39,16 @@ public void setBombs()
           //System.out.println(bombs.size());
        } 
    }
+
 }
 
 public void draw ()
 {
     background( 0 );
+    textSize(20);
+    fill(255);
+    text("Num of Bombs:"+bombs.size(), 200,550);
+    textSize(10);
     if(isWon())
         displayWinningMessage();
 }
@@ -56,20 +61,26 @@ public boolean isWon()
                 return false;
             }
         }
-    }
-    }
+     }
     return true;
 }
 public void displayLosingMessage()
 {
     //your code here
+    fill(255);
     textSize(20);
-    text("You Lose",200,200);
+    text("You Lose",200,500);
+    textSize(10);
 
 }
 public void displayWinningMessage()
 {
     //your code here
+    fill(255);
+    textSize(20);
+    text("You Win",200,500);
+    textSize(10);
+    noLoop();
 }
 
 public class MSButton
@@ -110,7 +121,11 @@ public class MSButton
             if(marked==false)
             clicked = false;
         }else if(bombs.contains(this)){
+            for(int i = 0; i<bombs.size(); i++){
+                bombs.get(i).clicked = true;
+            }
             displayLosingMessage();
+            noLoop();
         }else if(countBombs(r,c)>0){
             setLabel(""+countBombs(r,c));
         }else{
