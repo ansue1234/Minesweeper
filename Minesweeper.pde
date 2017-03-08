@@ -125,7 +125,7 @@ public class MSButton
                 bombs.get(i).clicked = true;
             }
             displayLosingMessage();
-            noLoop();
+            //noLoop();
         }else if(countBombs(r,c)>0){
             setLabel(""+countBombs(r,c));
         }else{
