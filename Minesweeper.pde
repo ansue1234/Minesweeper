@@ -71,7 +71,7 @@ public void displayLosingMessage()
     textSize(20);
     text("You Lose",200,500);
     textSize(10);
-    noLoop();
+    //noLoop();
 
 }
 public void displayWinningMessage()
