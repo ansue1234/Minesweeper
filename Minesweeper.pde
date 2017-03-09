@@ -7,6 +7,10 @@ private final int NUM_COLS=20;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
 private int numBomb = 100;
+private boolean over = false;
+private boolean win = false;
+private boolean lose = false;
+
 
 void setup ()
 {
@@ -51,6 +55,16 @@ public void draw ()
     textSize(10);
     if(isWon())
         displayWinningMessage();
+
+    if(over&&win){
+        textSize(20);
+        text("You Win",200,500);
+        textSize(10);
+    }else if(over&&lose){
+        textSize(20);
+        text("You lose",200,500);
+        textSize(10);
+    }
 }
 public boolean isWon()
 {
@@ -59,6 +73,7 @@ public boolean isWon()
         for (int c = 0; c < NUM_COLS; c ++) {
             if (!bombs.contains(buttons[r][c]) && !buttons[r][c].isClicked()) {
                 return false;
+               
             }
         }
      }
@@ -67,6 +82,8 @@ public boolean isWon()
 public void displayLosingMessage()
 {
     //your code here
+    over = true;
+    lose = true;
     fill(255);
     textSize(20);
     text("You Lose",200,500);
@@ -77,11 +94,13 @@ public void displayLosingMessage()
 public void displayWinningMessage()
 {
     //your code here
+    over = true;
+    win = true;
     fill(255);
     textSize(20);
     text("You Win",200,500);
     textSize(10);
-    noLoop();
+    //noLoop();
 }
 
 public class MSButton
@@ -115,6 +134,7 @@ public class MSButton
     
     public void mousePressed () 
     {
+        if(over==false){
         clicked = true;
         //your code here
         if(keyPressed==true||(mousePressed&&(mouseButton==RIGHT))){
@@ -148,6 +168,7 @@ public class MSButton
                 buttons[r-1][c-1].mousePressed();
           //3 more recursive calls
         }
+    }
         
     }
 
